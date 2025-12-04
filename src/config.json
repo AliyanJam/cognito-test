@@ -1,8 +1,8 @@
 {
   "region": "us-east-1",
-  "userPoolId": "us-east-1_yR6tbhF5S",
-  "clientId": "4th6poqslps5s688uo1a4ch4rn",
-  "cognitoDomain": "us-east-1yr6tbhf5s.auth.us-east-1.amazoncognito.com",
-  "redirectSignIn": "http://localhost:5174/callback",
-  "redirectSignOut": "http://localhost:5174/login"
+  "userPoolId": "us-east-1_ExamplePoolId",
+  "clientId": "12345exampleclientid67890",
+  "cognitoDomain": "example-auth-domain.auth.us-east-1.amazoncognito.com",
+  "redirectSignIn": "http://localhost:3000/callback",
+  "redirectSignOut": "http://localhost:3000/login"
 }
