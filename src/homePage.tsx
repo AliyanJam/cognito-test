@@ -41,10 +41,37 @@ const HomePage = () => {
     navigate("/login");
   };
 
+  const fetchUserMe = async () => {
+    try {
+      const accessToken = sessionStorage.getItem("accessToken");
+      const response = await fetch("http://localhost:3000/users/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error("Failed to fetch user:", response.status, response.statusText);
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        return;
+      }
+
+      const userData = await response.json();
+      console.log("User data from /users/me:", userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   return (
     <div>
       <h1>Hello World</h1>
       <p>See console log for Amazon Cognito user tokens.</p>
+      <button type="button" onClick={fetchUserMe}>
+        Fetch User Data
+      </button>
       <button type="button" onClick={handleLogout}>
         Logout
       </button>

@@ -6,9 +6,13 @@ import {
   InitiateAuthCommand,
   SignUpCommand,
   ConfirmSignUpCommand,
+  ForgotPasswordCommand,
+  ConfirmForgotPasswordCommand,
   type InitiateAuthCommandInput,
   type SignUpCommandInput,
   type ConfirmSignUpCommandInput,
+  type ForgotPasswordCommandInput,
+  type ConfirmForgotPasswordCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
 import config from "./config.json";
 
@@ -158,7 +162,9 @@ export const signOut = async () => {
       });
 
       if (!response.ok) {
-        console.error("Token revocation failed, but continuing with local logout");
+        console.error(
+          "Token revocation failed, but continuing with local logout"
+        );
       }
     } catch (error) {
       console.error("Error revoking token:", error);
@@ -168,4 +174,42 @@ export const signOut = async () => {
 
   // Clear local storage
   sessionStorage.clear();
+};
+
+export const forgotPassword = async (username: string) => {
+  const params: ForgotPasswordCommandInput = {
+    ClientId: config.clientId,
+    Username: username,
+  };
+  try {
+    const command = new ForgotPasswordCommand(params);
+    await cognitoClient.send(command);
+    console.log("Password reset code sent successfully");
+    return true;
+  } catch (error) {
+    console.error("Error requesting password reset: ", error);
+    throw error;
+  }
+};
+
+export const confirmForgotPassword = async (
+  username: string,
+  code: string,
+  newPassword: string
+) => {
+  const params: ConfirmForgotPasswordCommandInput = {
+    ClientId: config.clientId,
+    Username: username,
+    ConfirmationCode: code,
+    Password: newPassword,
+  };
+  try {
+    const command = new ConfirmForgotPasswordCommand(params);
+    await cognitoClient.send(command);
+    console.log("Password reset successfully");
+    return true;
+  } catch (error) {
+    console.error("Error resetting password: ", error);
+    throw error;
+  }
 };

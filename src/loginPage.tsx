@@ -90,6 +90,15 @@ const LoginPage = () => {
         )}
         <button type="submit">{isSignUp ? "Sign Up" : "Sign In"}</button>
       </form>
+      {!isSignUp && (
+        <button
+          type="button"
+          onClick={() => navigate("/forgot-password")}
+          style={{ marginTop: "10px" }}
+        >
+          Forgot Password?
+        </button>
+      )}
       <button type="button" onClick={() => setIsSignUp(!isSignUp)}>
         {isSignUp
           ? "Already have an account? Sign In"

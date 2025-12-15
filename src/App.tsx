@@ -6,6 +6,7 @@ import LoginPage from "./loginPage";
 import HomePage from "./homePage";
 import ConfirmUserPage from "./confirmUserPage";
 import CallbackPage from "./callbackPage";
+import ForgotPasswordPage from "./forgotPasswordPage";
 import "./App.css";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/confirm" element={<ConfirmUserPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/callback" element={<CallbackPage />} />
         <Route
           path="/home"
